@@ -3,7 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "workspaces": [
+    "apps/dashboard",
+    "apps/mobile",
+    "apps/portal",
+    "apps/website"
+  ],
   "scripts": {
+    "build:dashboard": "npm --workspace apps/dashboard run build",
+    "build:portal": "npm --workspace apps/portal run build",
+    "build:website": "npm --workspace apps/website run build",
+    "dev:dashboard": "npm --workspace apps/dashboard run dev",
+    "dev:portal": "npm --workspace apps/portal run dev",
+    "dev:website": "npm --workspace apps/website run dev",
     "test": "node --experimental-strip-types --test --test-isolation=none",
     "test:watch": "node --experimental-strip-types --test --test-isolation=none --watch"
   }
