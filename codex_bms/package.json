@@ -18,6 +18,7 @@
     "build:dashboard": "turbo run build --filter=@bms/dashboard",
     "build:portal": "turbo run build --filter=@bms/portal",
     "build:website": "turbo run build --filter=@bms/website",
+    "vercel:build:website": "node scripts/vercel-build-website.mjs",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",

@@ -1,10 +1,10 @@
 ## Vercel Deployment
 
-This repository contains multiple apps. Vercel must not build the GitHub repository root.
+This repository contains multiple apps. Use separate Vercel projects for each deployed app.
 
-Create separate Vercel projects with these root directories:
+Recommended Vercel projects and root directories:
 
-- `codex_bms/apps/website`
+- `website`: `codex_bms`
 - `codex_bms/apps/dashboard`
 - `codex_bms/apps/portal`
 
@@ -15,12 +15,27 @@ Each app now contains its own:
 - `tsconfig.json`
 - `next-env.d.ts`
 
-Vercel project settings for each Next.js app should stay on the standard framework path:
+The `website` project is intentionally built from the monorepo root so Vercel uses the root `package-lock.json` and npm workspace graph. The root [vercel.json](</C:/Users/JOHN ALYN/bms/claude_bms/vercel.json:1>) runs:
 
+- `npm install`
+- `npm run vercel:build:website`
+
+The wrapper script sets `NEXT_IGNORE_INCORRECT_LOCKFILE=1` for the Vercel website build. Next.js 16 currently misidentifies this npm workspace lockfile layout as incomplete even after install, so the flag suppresses that false-positive warning.
+
+Vercel project settings:
+
+- `website`
 - `Framework Preset`: `Next.js`
-- `Root Directory`: the app directory for that project, for example `codex_bms/apps/website`
+- `Root Directory`: `codex_bms`
+- `Install Command`: use `vercel.json`
+- `Build Command`: use `vercel.json`
+- `Output Directory`: leave empty or unset
+
+- `dashboard` and `portal`
+- `Framework Preset`: `Next.js`
+- `Root Directory`: the app directory for that project, for example `codex_bms/apps/dashboard`
 - `Build Command`: leave the default Next.js behavior in place, or use `npm run build`
-- `Output Directory`: leave this empty or unset
+- `Output Directory`: leave empty or unset
 
 Do not set `Output Directory` to `public`. That setting is for static sites and will cause Vercel to fail after a successful Next.js build because the app correctly emits `.next`, not a `public` build artifact.
 
