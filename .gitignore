@@ -1,3 +1,9 @@
-﻿node_modules
-.env
-.DS_Store
+.turbo/
+.next/
+apps/*/.next/
+node_modules/
+dist/
+build/
+*.tsbuildinfo
+.claude/
+.git-publish*/
