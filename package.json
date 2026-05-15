@@ -1,0 +1,32 @@
+{
+  "name": "bms-auth-foundation",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "npm@11.4.2",
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "dev:dashboard": "turbo run dev --filter=@bms/dashboard",
+    "dev:mobile": "turbo run dev --filter=@bms/mobile",
+    "dev:portal": "turbo run dev --filter=@bms/portal",
+    "dev:website": "turbo run dev --filter=@bms/website",
+    "build": "turbo run build",
+    "build:dashboard": "turbo run build --filter=@bms/dashboard",
+    "build:portal": "turbo run build --filter=@bms/portal",
+    "build:website": "turbo run build --filter=@bms/website",
+    "vercel:build:website": "node scripts/vercel-build-website.mjs",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:watch": "node --experimental-strip-types --test --test-isolation=none --watch",
+    "clean": "turbo run clean"
+  },
+  "devDependencies": {
+    "next": "16.2.6",
+    "turbo": "^2.9.9"
+  }
+}

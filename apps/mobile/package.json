@@ -1,0 +1,24 @@
+{
+  "name": "@bms/mobile",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "main": "expo/AppEntry",
+  "scripts": {
+    "dev": "expo start",
+    "lint": "node ../../scripts/workspace-task.mjs noop",
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "node ../../scripts/workspace-task.mjs noop",
+    "clean": "node ../../scripts/workspace-task.mjs clean"
+  },
+  "dependencies": {
+    "expo": "~55.0.0",
+    "expo-status-bar": "~3.0.0",
+    "react": "19.2.0",
+    "react-native": "0.83.9"
+  }
+}

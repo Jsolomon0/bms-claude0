@@ -1,0 +1,16 @@
+{
+  "name": "@bms/ui",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "lint": "node ../../scripts/workspace-task.mjs noop",
+    "clean": "node ../../scripts/workspace-task.mjs clean"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.0"
+  }
+}
