@@ -70,7 +70,7 @@ async function createExportApproval(
     resourceId: payPeriodId,
     approvedByUserId: "owner.approver",
     justification: "Approve payroll export",
-    expiresAt: "2026-05-10T00:00:00.000Z"
+    expiresAt: "2030-01-01T00:00:00.000Z"
   });
 }
 
