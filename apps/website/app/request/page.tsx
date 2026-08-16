@@ -1,51 +1,16 @@
-import {
-  FileField,
-  FormCard,
-  FormGrid,
-  KeyValueSummary,
-  PageHeader,
-  SectionGrid,
-  SelectField,
-  SimpleList,
-  TextAreaField,
-  TextField
-} from "../../../../packages/ui/src/react/index.tsx";
 import { WebsitePageShell } from "../../lib/page-shell.tsx";
-import {
-  getPublicRequestFormOptions,
-  getPublicRequestUploadRules,
-  getShortTermRestrictionLabels
-} from "../../lib/intake-data.ts";
+import { getPublicRequestFormOptions } from "../../lib/intake-data.ts";
+import { fmleSite } from "../../lib/siteConfig.ts";
 import { submitProjectRequestAction } from "./actions.ts";
 
-function getSubmissionAlert(searchParams?: {
-  error?: string;
-  fields?: string;
-}) {
+function getAlert(searchParams?: { error?: string; fields?: string }) {
   if (searchParams?.error === "validation") {
-    const fields = searchParams.fields
-      ? searchParams.fields
-          .split(",")
-          .map((field) => field.trim())
-          .filter(Boolean)
-      : [];
-
-    return {
-      title: "Submission needs correction",
-      body: fields.length > 0 ? `Check these fields before resubmitting: ${fields.join(", ")}.` : "Check the required fields and upload rules before resubmitting.",
-      meta: "Validation"
-    };
+    return "Please review the required fields and try again.";
   }
-
   if (searchParams?.error === "submission") {
-    return {
-      title: "Submission did not complete",
-      body: "The request workflow rejected the submission. Retry after reviewing the input rules.",
-      meta: "Retry needed"
-    };
+    return "Your request could not be submitted. Please try again or call the FMLE office directly.";
   }
-
-  return undefined;
+  return null;
 }
 
 export default async function WebsiteRequestPage({
@@ -53,95 +18,77 @@ export default async function WebsiteRequestPage({
 }: {
   searchParams?: Promise<{ error?: string; fields?: string }>;
 }) {
-  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  const resolved = searchParams ? await searchParams : undefined;
+  const alert = getAlert(resolved);
   const consultationOptions = getPublicRequestFormOptions();
-  const restrictionLabels = getShortTermRestrictionLabels();
-  const uploadRules = getPublicRequestUploadRules();
-  const submissionAlert = getSubmissionAlert(resolvedSearchParams);
 
   return (
     <WebsitePageShell>
-      <PageHeader
-        eyebrow="Public intake"
-        title="Start a project request as a short-term customer."
-        description="This form records the minimum required intake profile: name and email are required, an image upload is optional, and consultation preference is captured up front."
-        actions={[
-          { label: "Review access paths", href: "/access" },
-          { label: "Return home", href: "/" }
-        ]}
-        badges={["Name + email required", "Optional image upload", "Short-term restrictions apply"]}
-      />
-      <SectionGrid>
-        <div style={{ gridColumn: "span 8" }}>
-          <FormCard
-            title="Project request form"
-            description="Submissions flow into the shared intake workflow service, create a short-term customer request record, and trigger review notifications."
-          >
-            {submissionAlert ? (
-              <div className="bms-form-note" style={{ marginBottom: 18 }}>
-                <strong>{submissionAlert.title}</strong> {submissionAlert.body}
-              </div>
-            ) : null}
-            <form action={submitProjectRequestAction} encType="multipart/form-data">
-              <FormGrid>
-                <TextField label="Full name" name="submitterName" placeholder="Jordan Reed" required span="6" />
-                <TextField label="Email address" name="email" placeholder="jordan@example.com" required type="email" span="6" />
-                <TextField label="Phone number" name="phone" placeholder="Optional" type="tel" span="6" />
-                <TextField label="Project title" name="projectTitle" placeholder="Kitchen and entry remodel" required span="6" />
-                <TextAreaField
-                  label="Project summary"
-                  name="projectSummary"
-                  placeholder="Describe scope, timeline pressure, and anything the review team should know."
-                  required
-                />
-                <SelectField label="Consultation preference" name="consultationPreference" options={consultationOptions} defaultValue="within_7_days" />
-                <FileField
-                  label="Optional reference image"
-                  name="imageUpload"
-                  note="A single reference image can be attached for intake review."
-                  rules={uploadRules}
-                />
-              </FormGrid>
-              <div className="bms-actions">
-                <button className="bms-button bms-button--primary" type="submit">
-                  Submit request
-                </button>
-                <a className="bms-button bms-button--secondary" href="/access">
-                  View access options
-                </a>
-              </div>
-            </form>
-          </FormCard>
+      <main className="fmle-form-page">
+        <div className="fmle-form-shell">
+          <div className="fmle-form-intro">
+            <span className="fmle-eyebrow">Consultation request</span>
+            <h1>Tell FMLE how we can help.</h1>
+            <p>
+              Request a conversation about tax preparation, accounting, bookkeeping, payroll, business filing, nonprofit filing, or another financial service.
+            </p>
+          </div>
+
+          <div className="fmle-form-layout">
+            <section className="fmle-form-card">
+              {alert ? <div className="fmle-alert">{alert}</div> : null}
+              <form action={submitProjectRequestAction} encType="multipart/form-data">
+                <div className="fmle-form-grid">
+                  <div className="fmle-field">
+                    <label htmlFor="submitterName">Full name</label>
+                    <input id="submitterName" name="submitterName" required placeholder="Your full name" />
+                  </div>
+                  <div className="fmle-field">
+                    <label htmlFor="email">Email</label>
+                    <input id="email" name="email" type="email" required placeholder="you@example.com" />
+                  </div>
+                  <div className="fmle-field">
+                    <label htmlFor="phone">Phone</label>
+                    <input id="phone" name="phone" type="tel" placeholder="Best number to reach you" />
+                  </div>
+                  <div className="fmle-field">
+                    <label htmlFor="projectTitle">Service needed</label>
+                    <input id="projectTitle" name="projectTitle" required placeholder="Tax filing, bookkeeping, payroll…" />
+                  </div>
+                  <div className="fmle-field fmle-field-full">
+                    <label htmlFor="projectSummary">How can we help?</label>
+                    <textarea id="projectSummary" name="projectSummary" required placeholder="Briefly describe your tax or financial service needs." />
+                  </div>
+                  <div className="fmle-field">
+                    <label htmlFor="consultationPreference">Preferred timing</label>
+                    <select id="consultationPreference" name="consultationPreference" defaultValue="within_7_days">
+                      {consultationOptions.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
+                    </select>
+                  </div>
+                  <div className="fmle-field">
+                    <label htmlFor="imageUpload">Optional reference image</label>
+                    <input id="imageUpload" name="imageUpload" type="file" accept="image/jpeg,image/png,image/webp" />
+                  </div>
+                </div>
+                <button className="fmle-button fmle-button-primary fmle-form-submit" type="submit">Send consultation request</button>
+              </form>
+            </section>
+
+            <aside className="fmle-form-sidebar">
+              <h2>Prefer to speak directly?</h2>
+              <p>FMLE lists a 24/7 contact line for clients who would rather discuss their needs by phone.</p>
+              <p><a href={fmleSite.phoneHref}><strong>{fmleSite.phone}</strong></a></p>
+              <p><a href={fmleSite.emailHref}>{fmleSite.email}</a></p>
+              <ul>
+                <li>{fmleSite.addressLine1}</li>
+                <li>{fmleSite.addressLine2}</li>
+                <li>{fmleSite.parkingNote}</li>
+              </ul>
+              <p><small>Do not upload Social Security numbers, tax IDs, bank details, or other sensitive documents through this initial public form.</small></p>
+            </aside>
+          </div>
         </div>
-        <KeyValueSummary
-          title="Submission rules"
-          description="These rules match the validation and retention posture enforced by the intake workflow."
-          items={[
-            { label: "Customer type", value: "Short-term" },
-            { label: "Required identity", value: "Name and email" },
-            { label: "Upload rule", value: "Validated image only" },
-            { label: "Retention posture", value: "Records retained when required" }
-          ]}
-          span="4"
-        />
-        <SimpleList
-          title="Short-term restrictions"
-          description="Submitting this form does not create a long-term customer account."
-          items={restrictionLabels.map((label, index) => ({
-            title: `Restriction ${index + 1}`,
-            body: label
-          }))}
-          span="4"
-        />
-        {submissionAlert ? (
-          <SimpleList
-            title="Submission feedback"
-            description="The request was not accepted yet."
-            items={[submissionAlert]}
-            span="4"
-          />
-        ) : null}
-      </SectionGrid>
+      </main>
     </WebsitePageShell>
   );
 }
