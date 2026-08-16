@@ -1,52 +1,47 @@
-import { PageHeader, SectionGrid, SimpleList, StatsCard } from "../../../../../packages/ui/src/react/index.tsx";
 import { WebsitePageShell } from "../../../lib/page-shell.tsx";
+import { fmleSite } from "../../../lib/siteConfig.ts";
 
 export default async function WebsiteRequestSuccessPage({
   searchParams
 }: {
   searchParams?: Promise<{ requestId?: string }>;
 }) {
-  const resolvedSearchParams = searchParams ? await searchParams : undefined;
-  const requestId = resolvedSearchParams?.requestId;
+  const resolved = searchParams ? await searchParams : undefined;
+  const requestId = resolved?.requestId;
 
   return (
     <WebsitePageShell>
-      <PageHeader
-        eyebrow="Request received"
-        title="Your request is in the intake review queue."
-        description="The workflow foundation records the submission as a short-term customer request, emits an internal review notification, and sends a requester confirmation."
-        actions={[
-          { label: "Submit another request", href: "/request" },
-          { label: "Review access paths", href: "/access" }
-        ]}
-        badges={["Short-term request", "Admin review pending", "Consultation preference captured"]}
-      />
-      <SectionGrid>
-        <StatsCard
-          title="What happens next"
-          description="Internal reviewers can request more information, schedule a consultation, reject, create a project draft, or invite you as a long-term customer."
-          stats={[
-            { label: "Status", value: "Submitted" },
-            { label: "Review queue", value: "Active" },
-            { label: "Notifications", value: "Sent" },
-            { label: "Request ID", value: requestId ?? "Generated on submit" }
-          ]}
-          span="4"
-        />
-        <SimpleList
-          title="Expected follow-up"
-          description="The intake workflow is modeled before final persistence and email delivery wiring."
-          items={[
-            { title: "Submission receipt", body: "A requester confirmation notification is issued immediately." },
-            { title: "Internal review", body: "Admins review the request inside the CRM intake queue." },
-            { title: "Next step", body: "You may be asked for more info, offered a consultation, or invited to continue as a long-term customer." },
-            requestId
-              ? { title: "Reference", body: `Keep request ID ${requestId} for support follow-up if needed.` }
-              : { title: "Reference", body: "A request identifier is created on submission and can be used for support follow-up." }
-          ]}
-          span="8"
-        />
-      </SectionGrid>
+      <main className="fmle-form-page">
+        <div className="fmle-form-shell">
+          <div className="fmle-form-intro">
+            <span className="fmle-eyebrow">Request received</span>
+            <h1>Thank you for contacting FMLE.</h1>
+            <p>Your consultation request has been submitted for review. The team can follow up using the contact information you provided.</p>
+          </div>
+          <div className="fmle-form-layout">
+            <section className="fmle-form-card">
+              <h2>What happens next</h2>
+              <p>FMLE will review your request and determine the appropriate next step for your tax or financial service need.</p>
+              <ul>
+                <li>Your request is recorded for internal review.</li>
+                <li>The team may contact you for additional information.</li>
+                <li>Sensitive tax or banking documents should be shared only through an approved secure method.</li>
+              </ul>
+              {requestId ? <p><strong>Reference ID:</strong> {requestId}</p> : null}
+              <div className="fmle-hero-actions">
+                <a className="fmle-button fmle-button-primary" href="/">Return home</a>
+                <a className="fmle-button fmle-button-secondary" href={fmleSite.phoneHref}>Call {fmleSite.phone}</a>
+              </div>
+            </section>
+            <aside className="fmle-form-sidebar">
+              <h2>Need immediate help?</h2>
+              <p>Call the FMLE contact line directly.</p>
+              <p><a href={fmleSite.phoneHref}><strong>{fmleSite.phone}</strong></a></p>
+              <p><a href={fmleSite.emailHref}>{fmleSite.email}</a></p>
+            </aside>
+          </div>
+        </div>
+      </main>
     </WebsitePageShell>
   );
 }
