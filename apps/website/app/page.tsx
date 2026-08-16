@@ -1,56 +1,165 @@
-import { ModuleGrid, PageHeader, SectionGrid, SimpleList, StatsCard } from "../../../packages/ui/src/react/index.tsx";
-import { WebsitePageShell } from "../lib/page-shell.tsx";
-import { websiteHighlights } from "../lib/shell-data.ts";
+import { fmleSite } from "../lib/siteConfig.ts";
+
+function ServiceCard({ title, description, index }: { title: string; description: string; index: number }) {
+  return (
+    <article className="fmle-service-card">
+      <span className="fmle-service-number">{String(index + 1).padStart(2, "0")}</span>
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </article>
+  );
+}
 
 export default function WebsiteHomePage() {
   return (
-    <WebsitePageShell>
-      <PageHeader
-        eyebrow="BMS Website"
-        title="A public shell that points people into the right workspace."
-        description="This website surface is intentionally separate from the dashboard and portal. It can host headless WordPress content, intake entry points, and access CTAs without becoming the system of record."
-        actions={[
-          { label: "Request a project", href: "/request" },
-          { label: "Explore solutions", href: "/solutions" }
-        ]}
-        badges={["Public surface", "Headless-ready", "Shared design system"]}
-      />
-      <SectionGrid>
-        <StatsCard
-          title="Public-facing shell"
-          description="The website shares visual language with the app shells while staying lighter and unprotected."
-          stats={[
-            { label: "Marketing pages", value: "Ready" },
-            { label: "Access CTAs", value: "Ready" },
-            { label: "Intake mount points", value: "Ready" }
-          ]}
-          span="4"
-        />
-        <ModuleGrid
-          title="Platform story"
-          description="Short modules that explain how the three BMS app surfaces fit together."
-          modules={websiteHighlights}
-        />
-        <SimpleList
-          title="Public integration notes"
-          description="The website stays a presentation layer."
-          items={[
-            {
-              title: "Headless WordPress compatible",
-              body: "Public content can flow through this shell without duplicating operational records."
-            },
-            {
-              title: "Signed-link handoff ready",
-              body: "Public document, project, and payment views can land on separate scoped routes later."
-            },
-            {
-              title: "Role-aware entry points",
-              body: "Customers, partners, and internal teams can be directed into the correct secured app."
-            }
-          ]}
-          span="4"
-        />
-      </SectionGrid>
-    </WebsitePageShell>
+    <main className="fmle-site">
+      <header className="fmle-header">
+        <a className="fmle-brand" href="#top" aria-label="FMLE home">
+          <span className="fmle-mark" aria-hidden="true">
+            <span className="fmle-mark-red" />
+            <span className="fmle-mark-navy" />
+            <span className="fmle-mark-teal" />
+            <span className="fmle-mark-blue" />
+            <span className="fmle-mark-lime" />
+          </span>
+          <span className="fmle-brand-copy">
+            <strong>FMLE</strong>
+            <small>Tax & Financial Solution Partners</small>
+          </span>
+        </a>
+        <nav className="fmle-nav" aria-label="Primary navigation">
+          <a href="#tax-services">Tax Services</a>
+          <a href="#financial-services">Financial Solutions</a>
+          <a href="#about">Why FMLE</a>
+          <a href="#contact">Contact</a>
+        </nav>
+        <a className="fmle-header-phone" href={fmleSite.phoneHref}>
+          <span>Call us</span>
+          <strong>{fmleSite.phone}</strong>
+        </a>
+      </header>
+
+      <section className="fmle-hero" id="top">
+        <div className="fmle-hero-copy">
+          <div className="fmle-kicker"><span /> Tax season & year-round financial support</div>
+          <h1>Tax preparation with a financial partner mindset.</h1>
+          <p className="fmle-hero-lede">
+            Experienced tax and financial professionals helping individuals, businesses, and nonprofits file with confidence,
+            organize their finances, and prepare for what comes next.
+          </p>
+          <div className="fmle-hero-actions">
+            <a className="fmle-button fmle-button-primary" href="/request">Request a consultation</a>
+            <a className="fmle-button fmle-button-secondary" href={fmleSite.phoneHref}>Call {fmleSite.phone}</a>
+          </div>
+          <div className="fmle-trust-row" aria-label="FMLE service highlights">
+            <span>Individual & business filing</span>
+            <span>Accounting & bookkeeping</span>
+            <span>Payroll support</span>
+          </div>
+        </div>
+        <aside className="fmle-hero-panel">
+          <span className="fmle-panel-label">Tax season is here</span>
+          <h2>Prepare accurately. Claim what you’re eligible for. File with clarity.</h2>
+          <p>Get tax guidance before filing and a preparation process built around your actual situation.</p>
+          <a href="/request">Start with FMLE <span aria-hidden="true">→</span></a>
+          <div className="fmle-panel-accent" />
+        </aside>
+      </section>
+
+      <section className="fmle-strip" aria-label="FMLE service categories">
+        <span>Tax Preparation</span><i />
+        <span>Financial Solutions</span><i />
+        <span>Business Support</span><i />
+        <span>Payroll Services</span>
+      </section>
+
+      <section className="fmle-section" id="tax-services">
+        <div className="fmle-section-heading">
+          <div>
+            <span className="fmle-eyebrow">Tax services</span>
+            <h2>Prepared for individuals, businesses, and organizations.</h2>
+          </div>
+          <p>
+            FMLE combines practical filing support with a focus on accuracy, documentation, and the tax opportunities that apply to your circumstances.
+          </p>
+        </div>
+        <div className="fmle-service-grid fmle-service-grid-four">
+          {fmleSite.taxServices.map((service, index) => <ServiceCard key={service.title} {...service} index={index} />)}
+        </div>
+      </section>
+
+      <section className="fmle-section fmle-section-soft" id="financial-services">
+        <div className="fmle-section-heading">
+          <div>
+            <span className="fmle-eyebrow">Financial solutions</span>
+            <h2>Support that continues after the return is filed.</h2>
+          </div>
+          <p>
+            Build cleaner records, more dependable reporting, and stronger financial operations with services designed for ongoing business needs.
+          </p>
+        </div>
+        <div className="fmle-service-grid">
+          {fmleSite.financialServices.map((service, index) => <ServiceCard key={service.title} {...service} index={index} />)}
+        </div>
+      </section>
+
+      <section className="fmle-split" id="about">
+        <div className="fmle-split-dark">
+          <span className="fmle-eyebrow fmle-eyebrow-light">Why FMLE</span>
+          <h2>One relationship for tax preparation and financial organization.</h2>
+          <p>
+            Instead of treating tax filing as a once-a-year transaction, FMLE can help clients keep the financial side of life and business better organized throughout the year.
+          </p>
+          <ul className="fmle-check-list">
+            <li>Tax preparation for multiple filing needs</li>
+            <li>Business and nonprofit support</li>
+            <li>Accounting, bookkeeping, and payroll services</li>
+            <li>Direct access to a Miami-based team</li>
+          </ul>
+        </div>
+        <div className="fmle-split-light">
+          <span className="fmle-eyebrow">A simple process</span>
+          <ol className="fmle-process-list">
+            <li><strong>01</strong><div><h3>Tell us what you need</h3><p>Start with a consultation request or call the office directly.</p></div></li>
+            <li><strong>02</strong><div><h3>Organize the right information</h3><p>FMLE reviews your service need and identifies the records or documents required.</p></div></li>
+            <li><strong>03</strong><div><h3>Prepare and review</h3><p>Work through the filing or financial service with clear review points before completion.</p></div></li>
+          </ol>
+        </div>
+      </section>
+
+      <section className="fmle-referral">
+        <div>
+          <span className="fmle-eyebrow">Personal referrals</span>
+          <h2>Know someone who needs tax or financial help?</h2>
+          <p>Ask the FMLE team about the current personal-referral incentive and its terms.</p>
+        </div>
+        <a className="fmle-button fmle-button-light" href={fmleSite.phoneHref}>Ask about referrals</a>
+      </section>
+
+      <section className="fmle-contact" id="contact">
+        <div className="fmle-contact-copy">
+          <span className="fmle-eyebrow">Contact FMLE</span>
+          <h2>Get tax advice before you file.</h2>
+          <p>Call, email, or request a consultation online. FMLE serves clients from its Miami office with a 24/7 contact line.</p>
+          <div className="fmle-contact-actions">
+            <a className="fmle-button fmle-button-primary" href="/request">Request a consultation</a>
+            <a className="fmle-text-link" href={fmleSite.emailHref}>{fmleSite.email}</a>
+          </div>
+        </div>
+        <div className="fmle-contact-card">
+          <div><small>Phone</small><a href={fmleSite.phoneHref}>{fmleSite.phone}</a></div>
+          <div><small>Office</small><strong>{fmleSite.addressLine1}<br />{fmleSite.addressLine2}</strong><span>{fmleSite.parkingNote}</span></div>
+          <div><small>Fax</small><strong>{fmleSite.fax}</strong></div>
+        </div>
+      </section>
+
+      <footer className="fmle-footer">
+        <div className="fmle-brand fmle-brand-footer">
+          <span className="fmle-brand-copy"><strong>FMLE</strong><small>{fmleSite.descriptor}</small></span>
+        </div>
+        <p>© 2026 {fmleSite.legalName}. All rights reserved.</p>
+        <div className="fmle-footer-links"><a href="#tax-services">Tax Services</a><a href="#financial-services">Financial Solutions</a><a href="/request">Consultation</a></div>
+      </footer>
+    </main>
   );
 }
