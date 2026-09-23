@@ -170,3 +170,23 @@ a { color: inherit; }
   .fmle-form-grid { grid-template-columns: 1fr; }
   .fmle-field-full { grid-column: auto; }
 }
+
+
+/* Customer authentication */
+.fmle-auth-shell { max-width: 760px; }
+.fmle-auth-card { padding: clamp(30px,5vw,52px); }
+.fmle-auth-card h1, .fmle-account-header h1 { font-size: clamp(40px,5vw,62px); line-height: 1.02; letter-spacing: -.045em; margin: 16px 0; color: var(--fmle-navy-deep); }
+.fmle-auth-card > p, .fmle-account-header p { color: var(--fmle-muted); line-height: 1.65; }
+.fmle-auth-grid { grid-template-columns: 1fr; margin-top: 28px; }
+.fmle-auth-help { margin-top: 25px; font-size: 14px; }
+.fmle-auth-help a { color: var(--fmle-navy); font-weight: 800; }
+.fmle-account-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 30px; margin-bottom: 38px; }
+.fmle-account-header form { padding-top: 12px; }
+.fmle-account-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
+.fmle-account-card { background: white; border: 1px solid var(--fmle-line); padding: 30px; min-height: 230px; }
+.fmle-account-card h2 { color: var(--fmle-navy-deep); font-size: 23px; margin: 28px 0 12px; }
+.fmle-account-card p { color: var(--fmle-muted); line-height: 1.6; }
+@media (max-width: 850px) {
+  .fmle-account-header { flex-direction: column; }
+  .fmle-account-grid { grid-template-columns: 1fr; }
+}
