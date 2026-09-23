@@ -190,3 +190,47 @@ a { color: inherit; }
   .fmle-account-header { flex-direction: column; }
   .fmle-account-grid { grid-template-columns: 1fr; }
 }
+
+
+/* Live customer portal */
+.fmle-account-shell { max-width: 1320px; }
+.fmle-account-summary { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 16px; margin-bottom: 38px; }
+.fmle-account-summary-card { background: var(--fmle-navy-deep); color: white; padding: 25px; min-height: 150px; text-decoration: none; display: flex; flex-direction: column; gap: 8px; }
+.fmle-account-summary-card small { color: var(--fmle-teal); text-transform: uppercase; letter-spacing: .12em; font-weight: 800; }
+.fmle-account-summary-card strong { font-size: 29px; line-height: 1.1; }
+.fmle-account-summary-card span { color: #bed0dc; font-size: 13px; margin-top: auto; }
+.fmle-account-section { background: white; border: 1px solid var(--fmle-line); padding: clamp(24px,4vw,40px); margin-bottom: 24px; }
+.fmle-account-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 24px; }
+.fmle-account-section-heading h2 { margin: 8px 0 0; color: var(--fmle-navy-deep); font-size: clamp(28px,3vw,38px); letter-spacing: -.035em; }
+.fmle-account-list { display: grid; gap: 0; border-top: 1px solid var(--fmle-line); }
+.fmle-account-row { display: flex; justify-content: space-between; align-items: center; gap: 22px; padding: 18px 0; border-bottom: 1px solid var(--fmle-line); }
+.fmle-account-row > div { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.fmle-account-row strong { color: var(--fmle-navy-deep); }
+.fmle-account-row span { color: var(--fmle-muted); font-size: 13px; }
+.fmle-status { display: inline-flex; align-items: center; width: max-content; border-radius: 999px; padding: 7px 10px; background: #e9f7f4; color: #17685f !important; font-size: 11px !important; font-weight: 800; text-transform: uppercase; letter-spacing: .06em; white-space: nowrap; }
+.fmle-status-line { color: #17685f !important; font-weight: 800; }
+.fmle-account-card small { color: var(--fmle-muted); }
+.fmle-account-empty { padding: 18px 0; color: var(--fmle-muted); margin: 0; }
+.fmle-account-two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; }
+.fmle-account-two-column h3 { color: var(--fmle-navy); margin: 0 0 14px; font-size: 21px; }
+.fmle-account-money { text-align: right; align-items: flex-end; }
+.fmle-message-threads { display: grid; gap: 18px; }
+.fmle-message-thread { border: 1px solid var(--fmle-line); }
+.fmle-message-thread-header { display: flex; justify-content: space-between; gap: 20px; padding: 18px 20px; background: var(--fmle-soft); }
+.fmle-message-thread-header > div { display: flex; flex-direction: column; gap: 4px; }
+.fmle-message-thread-header span { color: var(--fmle-muted); font-size: 12px; }
+.fmle-message-list { padding: 18px; display: grid; gap: 12px; }
+.fmle-message { max-width: 760px; padding: 14px 16px; border-radius: 6px; }
+.fmle-message small { color: var(--fmle-muted); font-size: 11px; }
+.fmle-message p { margin: 7px 0 0; line-height: 1.55; white-space: pre-wrap; }
+.fmle-message-staff { background: #eef8f7; border-left: 3px solid var(--fmle-teal); }
+.fmle-message-customer { background: #f7f8fa; border-left: 3px solid #b8c4ce; margin-left: auto; }
+@media (max-width: 980px) {
+  .fmle-account-summary { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .fmle-account-two-column { grid-template-columns: 1fr; }
+}
+@media (max-width: 620px) {
+  .fmle-account-summary { grid-template-columns: 1fr; }
+  .fmle-account-section-heading, .fmle-account-row, .fmle-message-thread-header { align-items: flex-start; flex-direction: column; }
+  .fmle-account-money { text-align: left; align-items: flex-start; }
+}
