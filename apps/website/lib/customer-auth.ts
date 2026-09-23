@@ -23,6 +23,11 @@ function getSupabaseConfig() {
   return { url: url.replace(/\/$/, ""), anonKey };
 }
 
+export async function getFmleAccessToken(): Promise<string | null> {
+  const store = await cookies();
+  return store.get(ACCESS_COOKIE)?.value ?? null;
+}
+
 export async function getCurrentFmleUser(): Promise<FmleUser | null> {
   const store = await cookies();
   const accessToken = store.get(ACCESS_COOKIE)?.value;
