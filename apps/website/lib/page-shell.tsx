@@ -1,7 +1,10 @@
 import type { PropsWithChildren } from "react";
 import { fmleSite } from "./siteConfig.ts";
+import { getCurrentFmleUser } from "./customer-auth.ts";
 
-export function WebsitePageShell({ children }: PropsWithChildren) {
+export async function WebsitePageShell({ children }: PropsWithChildren) {
+  const user = await getCurrentFmleUser();
+
   return (
     <div className="fmle-site">
       <header className="fmle-header">
@@ -25,6 +28,7 @@ export function WebsitePageShell({ children }: PropsWithChildren) {
           <a href="/#about">Why FMLE</a>
           <a href="/#contact">Contact</a>
           <a href="/appointments">Book Appointment</a>
+          <a href={user ? "/account" : "/login"}>{user ? "My Account" : "Customer Login"}</a>
         </nav>
         <a className="fmle-header-phone" href={fmleSite.phoneHref}>
           <span>Call us</span>
