@@ -1,6 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
+import { getFmleAccessToken, getFmleSupabaseConfig } from "../../lib/customer-auth.ts";
 
 const DEFAULT_TO_EMAIL = "fmletax@outlook.com";
 
@@ -90,6 +91,34 @@ export async function requestAppointmentAction(formData: FormData): Promise<neve
     const detail = await response.text();
     console.error("Appointment email failed", response.status, detail);
     redirect("/appointments?error=send");
+  }
+
+  const accessToken = await getFmleAccessToken();
+  if (accessToken) {
+    try {
+      const { url, anonKey } = getFmleSupabaseConfig();
+      const persistResponse = await fetch(`${url}/rest/v1/rpc/fmle_customer_request_appointment`, {
+        method: "POST",
+        headers: {
+          apikey: anonKey,
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          p_service: service,
+          p_date: date,
+          p_time: time,
+          p_notes: notes || null
+        }),
+        cache: "no-store"
+      });
+
+      if (!persistResponse.ok) {
+        console.error("FMLE appointment persistence failed", persistResponse.status, await persistResponse.text());
+      }
+    } catch (error) {
+      console.error("FMLE appointment persistence failed", error);
+    }
   }
 
   redirect(`/appointments/success?date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}`);
