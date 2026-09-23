@@ -24,7 +24,7 @@ export default function WebsiteHomePage() {
               organize their finances, and prepare for what comes next.
             </p>
             <div className="fmle-hero-actions">
-              <a className="fmle-button fmle-button-primary" href="/request">Request a consultation</a>
+              <a className="fmle-button fmle-button-primary" href="/appointments">Book an appointment</a>
               <a className="fmle-button fmle-button-secondary" href={fmleSite.phoneHref}>Call {fmleSite.phone}</a>
             </div>
             <div className="fmle-trust-row" aria-label="FMLE service highlights">
@@ -125,7 +125,7 @@ export default function WebsiteHomePage() {
             <h2>Get tax advice before you file.</h2>
             <p>Call, email, or request a consultation online. FMLE serves clients from its Miami office with a 24/7 contact line.</p>
             <div className="fmle-contact-actions">
-              <a className="fmle-button fmle-button-primary" href="/request">Request a consultation</a>
+              <a className="fmle-button fmle-button-primary" href="/appointments">Book an appointment</a>
               <a className="fmle-text-link" href={fmleSite.emailHref}>{fmleSite.email}</a>
             </div>
           </div>
