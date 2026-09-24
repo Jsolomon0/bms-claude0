@@ -1,9 +1,11 @@
 import type { PropsWithChildren } from "react";
 import { fmleSite } from "./siteConfig.ts";
 import { getCurrentFmleUser } from "./customer-auth.ts";
+import { isFmleStaff } from "./staff-data.ts";
 
 export async function WebsitePageShell({ children }: PropsWithChildren) {
   const user = await getCurrentFmleUser();
+  const staff = user ? await isFmleStaff() : false;
 
   return (
     <div className="fmle-site">
@@ -29,6 +31,7 @@ export async function WebsitePageShell({ children }: PropsWithChildren) {
           <a href="/#contact">Contact</a>
           <a href="/appointments">Book Appointment</a>
           <a href={user ? "/account" : "/login"}>{user ? "My Account" : "Customer Login"}</a>
+          {staff ? <a href="/staff">Staff Console</a> : null}
         </nav>
         <a className="fmle-header-phone" href={fmleSite.phoneHref}>
           <span>Call us</span>
