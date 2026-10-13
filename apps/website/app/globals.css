@@ -254,3 +254,10 @@ a { color: inherit; }
   .fmle-staff-span-two { grid-column: auto; }
   .fmle-staff-activity-grid { grid-template-columns: 1fr; }
 }
+
+
+/* Multi-page public site */
+.fmle-inner-hero { min-height: auto; }
+.fmle-contact-page { padding-top: clamp(70px,8vw,120px); padding-bottom: clamp(70px,8vw,120px); }
+.fmle-contact-page .fmle-contact-copy h1 { font-size: clamp(44px,6vw,78px); line-height: .98; letter-spacing: -.05em; margin: 14px 0 20px; color: var(--fmle-navy-deep); }
+.fmle-text-link-light { color: white !important; display: inline-block; margin: 12px 0 8px; }
