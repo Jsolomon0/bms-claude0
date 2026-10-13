@@ -25,10 +25,10 @@ export async function WebsitePageShell({ children }: PropsWithChildren) {
           </span>
         </a>
         <nav className="fmle-nav" aria-label="Primary navigation">
-          <a href="/#tax-services">Tax Services</a>
-          <a href="/#financial-services">Financial Solutions</a>
-          <a href="/#about">Why FMLE</a>
-          <a href="/#contact">Contact</a>
+          <a href="/tax-services">Tax Services</a>
+          <a href="/financial-solutions">Financial Solutions</a>
+          <a href="/about">Why FMLE</a>
+          <a href="/contact">Contact</a>
           <a href="/appointments">Book Appointment</a>
           <a href={user ? "/account" : "/login"}>{user ? "My Account" : "Customer Login"}</a>
           {staff ? <a href="/staff">Staff Console</a> : null}
@@ -50,7 +50,7 @@ export async function WebsitePageShell({ children }: PropsWithChildren) {
           />
         </a>
         <p>© 2026 {fmleSite.legalName}. All rights reserved.</p>
-        <div className="fmle-footer-links"><a href="/#tax-services">Tax Services</a><a href="/#financial-services">Financial Solutions</a><a href="/appointments">Book Appointment</a><a href="/request">Consultation</a></div>
+        <div className="fmle-footer-links"><a href="/tax-services">Tax Services</a><a href="/financial-solutions">Financial Solutions</a><a href="/about">Why FMLE</a><a href="/contact">Contact</a><a href="/appointments">Book Appointment</a></div>
       </footer>
     </div>
   );
