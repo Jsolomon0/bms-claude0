@@ -56,7 +56,7 @@ export default function WebsiteHomePage() {
           <span>Payroll Services</span>
         </section>
 
-        <section className="fmle-section" id="tax-services">
+        <section className="fmle-section">
           <div className="fmle-section-heading">
             <div>
               <span className="fmle-eyebrow">Tax services</span>
@@ -66,12 +66,13 @@ export default function WebsiteHomePage() {
               FMLE combines practical filing support with a focus on accuracy, documentation, and the tax opportunities that apply to your circumstances.
             </p>
           </div>
+          <a className="fmle-text-link" href="/tax-services">Explore all tax services →</a>
           <div className="fmle-service-grid fmle-service-grid-four">
             {fmleSite.taxServices.map((service, index) => <ServiceCard key={service.title} {...service} index={index} />)}
           </div>
         </section>
 
-        <section className="fmle-section fmle-section-soft" id="financial-services">
+        <section className="fmle-section fmle-section-soft">
           <div className="fmle-section-heading">
             <div>
               <span className="fmle-eyebrow">Financial solutions</span>
@@ -81,18 +82,20 @@ export default function WebsiteHomePage() {
               Build cleaner records, more dependable reporting, and stronger financial operations with services designed for ongoing business needs.
             </p>
           </div>
+          <a className="fmle-text-link" href="/financial-solutions">Explore financial solutions →</a>
           <div className="fmle-service-grid">
             {fmleSite.financialServices.map((service, index) => <ServiceCard key={service.title} {...service} index={index} />)}
           </div>
         </section>
 
-        <section className="fmle-split" id="about">
+        <section className="fmle-split">
           <div className="fmle-split-dark">
             <span className="fmle-eyebrow fmle-eyebrow-light">Why FMLE</span>
             <h2>One relationship for tax preparation and financial organization.</h2>
             <p>
               Instead of treating tax filing as a once-a-year transaction, FMLE can help clients keep the financial side of life and business better organized throughout the year.
             </p>
+            <a className="fmle-text-link fmle-text-link-light" href="/about">Learn more about FMLE →</a>
             <ul className="fmle-check-list">
               <li>Tax preparation for multiple filing needs</li>
               <li>Business and nonprofit support</li>
@@ -119,14 +122,14 @@ export default function WebsiteHomePage() {
           <a className="fmle-button fmle-button-light" href={fmleSite.phoneHref}>Ask about referrals</a>
         </section>
 
-        <section className="fmle-contact" id="contact">
+        <section className="fmle-contact">
           <div className="fmle-contact-copy">
             <span className="fmle-eyebrow">Contact FMLE</span>
             <h2>Get tax advice before you file.</h2>
             <p>Call, email, or request a consultation online. FMLE serves clients from its Miami office with a 24/7 contact line.</p>
             <div className="fmle-contact-actions">
               <a className="fmle-button fmle-button-primary" href="/appointments">Book an appointment</a>
-              <a className="fmle-text-link" href={fmleSite.emailHref}>{fmleSite.email}</a>
+              <a className="fmle-text-link" href="/contact">View all contact options →</a>
             </div>
           </div>
           <div className="fmle-contact-card">
